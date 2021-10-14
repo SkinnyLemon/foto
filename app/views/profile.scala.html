@@ -1,0 +1,23 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@(profile: String, pictureIds: Iterable[String])
+
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main(profile, "profile") {
+    <div class="content">
+        <div class="profile-banner">@profile</div>
+        <div class="photo-collection">
+            @for(id <- pictureIds) {
+                <a class="photo-preview-box" href="/foto/@profile/@id">
+                    <img class="photo-preview-img" src="/resources/@profile/@id" alt="Bild">
+                </a>
+            }
+        </div>
+    </div>
+}

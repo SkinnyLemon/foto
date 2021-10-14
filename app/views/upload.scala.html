@@ -1,0 +1,24 @@
+@*
+* This template takes a single argument, a String containing a
+* message to display.
+*@
+@()
+
+@*
+* Call the `main` template with two arguments. The first
+* argument is a `String` with the title of the page, the second
+* argument is an `Html` object containing the body of the page.
+*@
+@main(s"Foto hochladen", "upload") {
+    <div class="content">
+        <div class="upload-form">
+            <div class="upload-header">Upload</div>
+            <label class="description">
+                Beschreibung
+                <textarea class="description-input input-field" id="description-input" rows="10" placeholder="Beschreibung"></textarea>
+            </label>
+            <div class="upload-picture" id="upload-picture">Bild hochladen</div>
+            <div class="button-confirm" id="button-confirm">Bestätigen</div>
+        </div>
+    </div>
+}

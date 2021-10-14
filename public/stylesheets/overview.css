@@ -1,0 +1,16 @@
+.profile-list {
+    width: 100%;
+}
+
+.profile-entry {
+    width: calc(100% - 2em);
+    padding: 0.5em 1em;
+    font-size: 2em;
+    display: flex;
+    align-content: center;
+    border-bottom: black solid 0.01em;
+}
+
+.profile-entry:hover {
+    background-color: var(--focus);
+}
