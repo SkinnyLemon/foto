@@ -1,11 +1,7 @@
 package data
 
-import com.google.common.base.Supplier
-
-import java.io.{ByteArrayInputStream, InputStream}
 import java.nio.file.{Files, Paths, StandardOpenOption}
 import java.util.UUID
-import java.util.stream.Collector
 import scala.jdk.CollectionConverters.IteratorHasAsScala
 
 class FileDataHandler {

@@ -1,0 +1,9 @@
+services:
+  fotos:
+    image: fotos
+    container_name: fotos
+    restart: always
+    volumes:
+      - ./resources/:/resources/
+    ports:
+      - 9000:9000
