@@ -5,7 +5,7 @@ sudo apt-get install temurin-11-jdk unzip -y
 
 unzip fotos.zip
 cp conf/application.conf fotos-1.0/conf/application.conf
-cd fotos-1.0
+cd fotos-1.0 || exit
 mkdir resources
 sudo mount -t auto /dev/vdb resources
 ./bin/fotos &
