@@ -1,6 +1,6 @@
 package controllers
 
-import data.FileDataHandler
+import data.CloudDataHandler
 import play.api.libs.json.JsValue
 import play.api.mvc._
 
@@ -8,7 +8,7 @@ import javax.inject._
 
 @Singleton
 class UploadController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val dataHandler = new FileDataHandler
+  val dataHandler = new CloudDataHandler
   def upload: Action[JsValue] = Action(parse.json(10000000)) { request =>
     val body = request.body
     val base64Image = body("data").toString.split(",")(1)

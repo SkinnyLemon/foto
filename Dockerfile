@@ -34,9 +34,11 @@ RUN apk upgrade
 RUN apk add bash
 ENV JAVA_MINIMAL=/opt/jre
 ENV PATH="$PATH:$JAVA_MINIMAL/bin"
+ENV GOOGLE_APPLICATION_CREDENTIALS=/fotos/credentials
 COPY --from=packager "$JAVA_MINIMAL" "$JAVA_MINIMAL"
 COPY --from=builder "/root/build/fotos-1.0" "/fotos"
 COPY conf/application.conf /fotos/conf/application.conf
+COPY config/credentials /fotos/credentials
 WORKDIR /fotos
 RUN ls
 ENTRYPOINT bash bin/fotos
