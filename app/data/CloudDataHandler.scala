@@ -31,7 +31,7 @@ class CloudDataHandler {
     DatastoreHandler.listUsers()
   }
 
-  def listImages: List[String] = {
+  def listImages: List[(String, String)] = {
     DatastoreHandler.listAllImages()
   }
 }

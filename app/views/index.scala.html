@@ -2,7 +2,7 @@
 * This template takes a single argument, a String containing a
 * message to display.
 *@
-@(images: Iterable[String])
+@(images: Iterable[(String, String)])
 
 @*
 * Call the `main` template with two arguments. The first
@@ -13,8 +13,8 @@
     <div class="content">
         <div class="photo-collection">
         @for(image <- images) {
-            <a class="photo-preview-box" href="/foto/@image">
-                <img class="photo-preview-img" src="/resources/@image" alt="Bild">
+            <a class="photo-preview-box" href="/foto/@{image._2}">
+                <img class="photo-preview-img" src="/resources/@{image._1}/@{image._2}" alt="Bild">
             </a>
         }
         </div>

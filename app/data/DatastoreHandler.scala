@@ -4,6 +4,7 @@ import com.google.cloud.datastore.StructuredQuery.{CompositeFilter, OrderBy, Pro
 import com.google.cloud.datastore.{DatastoreOptions, Entity, Query, QueryResults, ReadOption}
 
 import java.util
+import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters.IteratorHasAsScala
 
 object DatastoreHandler {
@@ -27,30 +28,40 @@ object DatastoreHandler {
 
   def listUserPictures(userName: String): List[String] = {
     val query = Query.newEntityQueryBuilder()
-        .setKind("Task")
+        .setKind(kind)
         .setFilter(PropertyFilter.eq("userName", userName))
         .build();
-    val tasks: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
-    tasks.asScala.map(_.getKey.getName).toList
+    val queryResult: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
+
+    val results = new ListBuffer[String]
+    while (queryResult.hasNext)
+      results += queryResult.next().getKey().getName
+    results.toList
   }
 
-  def listAllImages(): List[String] = {
+  def listAllImages(): List[(String, String)] = {
     val query = Query.newEntityQueryBuilder()
-      .setKind("Task")
+      .setKind(kind)
       .build();
-    val tasks: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
-    tasks.asScala.map(_.getKey.getName).toList
+    val queryResult: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
+
+    val results = new ListBuffer[(String, String)]
+    while (queryResult.hasNext) {
+      val next = queryResult.next()
+      results += (next.getString("userName") -> next.getKey().getName)
+    }
+    results.toList
   }
 
   def listUsers(): List[String] = {
     val query = Query.newEntityQueryBuilder()
-      .setKind("Task")
+      .setKind(kind)
       .build();
-    val tasks: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
-    tasks.asScala.map(_.getString("userName")).toList.distinct
-  }
-}
+    val queryResult: QueryResults[Entity] = datastore.run(query, Seq.empty[ReadOption]: _*)
 
-object Test extends App {
-  DatastoreHandler.listUsers()
+    val results = new ListBuffer[String]
+    while (queryResult.hasNext)
+      results += queryResult.next().getString("userName")
+    results.distinct.toList
+  }
 }
